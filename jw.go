@@ -18,7 +18,11 @@ func GetDocument() *Document {
 }
 
 func (d *Document) GetElementByID(id string) *Element {
-	return &Element{d.Call("getElementById", id)}
+	e := d.Call("getElementById", id)
+	if e == nil {
+		return nil
+	}
+	return &Element{e}
 }
 func (d *Document) CreateElement(t TagName) *Element {
 	return &Element{Value: d.Call("createElement", string(t))}
